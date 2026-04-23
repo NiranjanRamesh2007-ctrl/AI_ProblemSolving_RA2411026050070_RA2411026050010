@@ -1,0 +1,95 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# ==========================================
+# STEP 1: Generate Synthetic Dataset
+# ==========================================
+# Creating 200 random applicants
+np.random.seed(42)
+n_samples = 200
+
+data = {
+    'Income': np.random.randint(25000, 150000, n_samples),
+    'Credit_Score': np.random.randint(300, 850, n_samples),
+    'Loan_Amount': np.random.randint(5000, 60000, n_samples),
+    'Employment_Status': np.random.choice(['Employed', 'Unemployed', 'Self-Employed'], n_samples)
+}
+df = pd.DataFrame(data)
+
+# Logic for the target variable: 
+# Approve if Credit Score > 600 AND they are NOT Unemployed. Otherwise, Reject.
+# (We add some noise so the model actually has to learn)
+loan_status = []
+for index, row in df.iterrows():
+    if row['Credit_Score'] > 600 and row['Employment_Status'] != 'Unemployed':
+        loan_status.append('Approved')
+    else:
+        loan_status.append('Rejected')
+        
+df['Loan_Status'] = loan_status
+
+print("--- Dataset Preview ---")
+print(df.head(), "\n")
+
+# ==========================================
+# STEP 2: Data Preprocessing
+# ==========================================
+# Handle missing values (if any existed)
+df = df.dropna()
+
+# Encode Categorical Data (Text to Numbers)
+encoder = LabelEncoder()
+df['Employment_Status'] = encoder.fit_transform(df['Employment_Status'])
+# E.g., Employed=0, Self-Employed=1, Unemployed=2
+
+# Define Features (X) and Target (y)
+X = df.drop('Loan_Status', axis=1) # All columns EXCEPT the target
+y = df['Loan_Status']              # ONLY the target column
+
+# Split into Training (80%) and Testing (20%) sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Scale the data (helps Logistic Regression perform better by leveling the playing field for large numbers like Income)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# ==========================================
+# STEP 3: Train the Classification Model
+# ==========================================
+model = LogisticRegression()
+model.fit(X_train_scaled, y_train)
+
+# ==========================================
+# STEP 4: Evaluate the Model
+# ==========================================
+y_pred = model.predict(X_test_scaled)
+accuracy = accuracy_score(y_test, y_pred)
+
+print("--- Model Evaluation ---")
+print(f"Model Accuracy: {accuracy * 100:.2f}%\n")
+
+# ==========================================
+# STEP 5: Predict a New Applicant
+# ==========================================
+print("--- New Applicant Prediction ---")
+# Let's create a new test applicant:
+# Income: $85,000 | Credit Score: 720 | Loan Amount: $20,000 | Employment: Employed (which encoded to 0)
+new_applicant = pd.DataFrame({
+    'Income': [85000],
+    'Credit_Score': [720],
+    'Loan_Amount': [20000],
+    'Employment_Status': [encoder.transform(['Employed'])[0]]
+})
+
+# We MUST scale the new applicant using the same scaler we used for training
+new_applicant_scaled = scaler.transform(new_applicant)
+
+# Make the prediction
+prediction = model.predict(new_applicant_scaled)
+print(f"Applicant Details: Income=$85k, Credit=720, Loan=$20k, Status=Employed")
+print(f"Predicted Loan Status: **{prediction[0]}**")
