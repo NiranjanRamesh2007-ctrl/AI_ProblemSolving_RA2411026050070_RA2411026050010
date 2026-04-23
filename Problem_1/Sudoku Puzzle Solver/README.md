@@ -1,6 +1,3 @@
-Your Sudoku Solver project is well-structured and ready for GitHub. Here is a comprehensive and professional `README.md` file based on your code and previous requests for an innovative, dark-themed AI project.
-
-***
 
 # Sudoku Puzzle Solver Using CSP
 
