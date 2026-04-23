@@ -92,4 +92,4 @@ new_applicant_scaled = scaler.transform(new_applicant)
 # Make the prediction
 prediction = model.predict(new_applicant_scaled)
 print(f"Applicant Details: Income=$85k, Credit=720, Loan=$20k, Status=Employed")
-print(f"Predicted Loan Status: **{prediction[0]}**")
+print(f"Predicted Loan Status: **{prediction[0]}**") 
