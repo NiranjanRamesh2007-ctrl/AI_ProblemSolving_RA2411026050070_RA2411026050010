@@ -23,7 +23,7 @@ Loan_App/
 └── templates/
     └── index.html        # The frontend user interface
 ```
-##🚀 Installation & Setup
+## 🚀 Installation & Setup
 1. Prerequisites
 You must have Python installed on your system. You can download it from python.org.
 
