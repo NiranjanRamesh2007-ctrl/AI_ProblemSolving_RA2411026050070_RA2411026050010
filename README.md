@@ -67,3 +67,4 @@ The interface is designed for high visibility in dark mode:
 - **Rose Red:** Alerts the user to invalid logic during manual play.
 
 ---
+# PROBLEM 2
