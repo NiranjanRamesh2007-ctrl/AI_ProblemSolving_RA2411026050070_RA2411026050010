@@ -22,6 +22,7 @@ Loan_App/
 ├── README.md             # Project documentation
 └── templates/
     └── index.html        # The frontend user interface
+```
 🚀 Installation & Setup
 1. Prerequisites
 You must have Python installed on your system. You can download it from python.org.
