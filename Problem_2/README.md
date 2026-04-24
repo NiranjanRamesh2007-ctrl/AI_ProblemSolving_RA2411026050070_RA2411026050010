@@ -23,7 +23,7 @@ Loan_App/
 └── templates/
     └── index.html        # The frontend user interface
 ```
-🚀 Installation & Setup
+##🚀 Installation & Setup
 1. Prerequisites
 You must have Python installed on your system. You can download it from python.org.
 
@@ -39,7 +39,7 @@ Bash
 python app.py
 Once the server is running, open your web browser and navigate to: http://127.0.0.1:5000
 
-📝 How to Test the System
+##📝 How to Test the System
 Because the application uses Regular Expressions to scrape unstructured PDF data, the uploaded PDF must contain text in a specific format.
 
 To test the application, create a Word Document, Google Doc, or Text File, copy the text below, and Save/Export it as a .pdf:
@@ -56,7 +56,7 @@ Employment Status: Employed
 
 Upload this newly created PDF via the web interface to view the prediction!
 
-🧠 How the Model Works
+##🧠 How the Model Works
 The application currently uses a Logistic Regression model. Upon starting app.py, the system generates 1,000 realistic data points with the following logic:
 
 Approved if: Credit Score > 620 AND Income > $40,000 AND Status != 'Unemployed'.
