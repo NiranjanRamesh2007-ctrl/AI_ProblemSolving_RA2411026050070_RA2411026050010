@@ -1,4 +1,4 @@
-
+# PROBLEM 1
 # Sudoku Puzzle Solver Using CSP
 
 An interactive, full-stack web application that solves Sudoku puzzles using **Constraint Satisfaction Problem (CSP)** techniques. This project features a modern "Glassmorphism" dark-themed UI and a recursive backtracking engine built with Python and Flask.
